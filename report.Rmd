@@ -6,6 +6,9 @@ params:
   f: NA
 ---
 
+```{r direccion, echo=FALSE}
+kable(params$n)
+```
 
 ```{r echo=FALSE}
 library(kableExtra)

@@ -39,7 +39,7 @@ cargador("ISO","implantacion")
 implantacion <- db$find()
 ## Initial data frame
 pedidoTabla<- NULL
-print(pedidoTabla)
+#print(pedidoTabla)
 ## App
 shinyApp(
   ui <-  dashboardPage(title = "PEDIDOS",
@@ -55,12 +55,9 @@ shinyApp(
                           choices = levels(as.factor(productos$PROVEEDOR))),
               uiOutput("secondSelection"),
               numericInput("quantity", "Cantidad", 1,
-                           min = 1, max = 100)
-            ),
-            column(
-              width = 3,
+                           min = 1, max = 100),
               actionButton("add","Añadir",icon = icon("plus-square")),
-              numericInput(inputId = "row.selection", label = "Select row to be deleted", min = 1, max = 100, value = ""),
+              numericInput(inputId = "row.selection", label = "Selecciona el producto a borrar", min = 1, max = 100, value = ""),
               actionButton(inputId = "delete", label = "Borrar", icon = icon("minus"))
           )
          ),
@@ -68,22 +65,18 @@ shinyApp(
            column(
              width = 3,
              selectInput("direccion", "Direccion de envío", choices = implantacion$Direccion),
-             selectInput("contacto","Responsable", choices = nombreCompleto)
-           ),
-           column(
-             width = 3,
-             numericInput("desde","Hora Inicial",8,min = 8, max = 16),
-             numericInput("hasta","Hora Final", 8, min = 8, max = 20),
+             selectInput("contacto","Responsable", choices = nombreCompleto),
+             numericInput("desde","Hora Inicial de Recepción",8,min = 8, max = 16),
+             numericInput("hasta","Hora Final de Recepción", 8, min = 8, max = 20),
              downloadButton("report", "Hacer Pedido")
            )
-         )
-         , style = "height:300px"
-        ),
-        fluidRow(
-          column(
-            width = 6,
-            DT::dataTableOutput("table")
-          )
+         ),
+         div( name = "hojaPedido", 
+           column(
+             width = 6,
+             DT::dataTableOutput("table")
+           )
+         ) 
         )
       )
     ),
@@ -114,6 +107,8 @@ shinyApp(
     output$table = renderDataTable({
       values$df 
     })
+    
+    direccion <- reactive(input$direccion)
     #################################################################################
     ## Controller for the second selection
     output$secondSelection <- renderUI({
@@ -134,7 +129,7 @@ shinyApp(
         file.copy("report.Rmd", tempReport, overwrite = TRUE)
         
         # Set up parameters to pass to Rmd document
-        params <- list(n = input$slider,
+        params <- list(n = direccion(),
                        e = data.frame("LOG"="","ABC"="PCM-06-01 ORDEN DE PEDIDO VERBAL","EDI"="Edición 01/01/2019"),
                        f = values$df)
         
