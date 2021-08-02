@@ -1,0 +1,23 @@
+---
+output: pdf_document
+params:
+  n: NA
+  e: NA
+  f: NA
+---
+
+
+```{r echo=FALSE}
+library(kableExtra)
+dt <- params$e
+kable(dt,col.names = NULL)
+# dt %>% 
+#   kbl() %>% 
+#   kable(col.names = NULL) #%>% 
+#   #kable_classic()
+```
+
+
+```{r echo=FALSE}
+kable(params$f)
+```
