@@ -5,13 +5,15 @@ params:
   e: NA
   f: NA
 ---
+# PEDIDO
 
 ```{r direccion, echo=FALSE}
+library(kableExtra)
 kable(params$n)
 ```
 
 ```{r echo=FALSE}
-library(kableExtra)
+
 dt <- params$e
 kable(dt,col.names = NULL)
 # dt %>% 
