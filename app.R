@@ -3,6 +3,8 @@ library(shinydashboard)
 library(mongolite)
 library(shiny)
 library(DT)
+library(png)
+library(knitr) 
 ## Functions and variables
 title <- tags$a(href='http://www.multilimpiezas.com/',
                 tags$img(src = "multilogo.png", height = '50', width = '77'),'Multilimpiezas')
@@ -37,6 +39,12 @@ trabajadores <- db$find()
 nombreCompleto <- paste(trabajadores$Nombres, trabajadores$Apellido_1, sep=" ")
 cargador("ISO","implantacion")
 implantacion <- db$find()
+
+img1_path <- "C://Users/ortiz/OneDrive/pedidos/www/multilogo.png"
+img1 <- readPNG(img1_path, native = TRUE, info = TRUE)
+attr(img1, "info")
+
+
 ## Initial data frame
 pedidoTabla<- NULL
 #print(pedidoTabla)
@@ -131,7 +139,8 @@ shinyApp(
         # Set up parameters to pass to Rmd document
         params <- list(n = direccion(),
                        e = data.frame("LOG"="","ABC"="PCM-06-01 ORDEN DE PEDIDO VERBAL","EDI"="Edición 01/01/2019"),
-                       f = values$df)
+                       f = values$df,
+                       i = img1_path)
         
         # Knit the document, passing in the `params` list, and eval it in a
         # child of the global environment (this isolates the code in the document

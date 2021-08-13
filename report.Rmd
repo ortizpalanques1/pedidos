@@ -4,7 +4,14 @@ params:
   n: NA
   e: NA
   f: NA
+  i: nA
 ---
+
+```{r logo, echo=FALSE}
+# All defaults
+include_graphics(params$i)
+```
+
 # PEDIDO
 
 ```{r direccion, echo=FALSE}
