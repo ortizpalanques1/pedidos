@@ -103,7 +103,7 @@ shinyApp(
              div( name = "detallePedido",
                column(
                  width = 3,
-                 selectInput("direccion", "Direccion de envío", choices = implantacion$Direccion),
+                 selectInput("direccion", "Direccion de envío", choices = implantacion$Direccion_Envio),
                  selectInput("contacto","Responsable", choices = nombreCompleto),
                  numericInput("desde","Hora Inicial de Recepción",8,min = 8, max = 16),
                  numericInput("hasta","Hora Final de Recepción", 8, min = 8, max = 20),
