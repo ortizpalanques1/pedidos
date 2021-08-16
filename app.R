@@ -59,6 +59,7 @@ cargador("ISO","productos")
 productos <- db$find()
 cargador("ISO","proveedores")
 proveedores <- db$find()
+print(proveedores)
 cargador("ISO","trabajadores")
 trabajadores <- db$find()
 nombreCompleto <- paste(trabajadores$Nombres, trabajadores$Apellido_1, sep=" ")
@@ -125,7 +126,7 @@ shinyApp(
                      width = 3,
                      selectInput("PROVEEDOR",
                                  "Proveedor",
-                                 choices = levels(as.factor(productos$PROVEEDOR))),
+                                 choices = levels(as.factor(proveedores$NOMBRE_PROVEEDOR))),
                      textInput("PRODUCTO",
                                "Producto",
                                value="",
