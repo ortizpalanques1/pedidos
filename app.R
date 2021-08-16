@@ -14,7 +14,6 @@ year <- format(as.Date(fecha, format="%Y-%m-%d"),"%Y")
 month <- format(as.Date(fecha, format="%Y-%m-%d"),"%m")
 day <- format(as.Date(fecha, format="%Y-%m-%d"),"%d")
 key1 <- paste0(as.character(year),as.character(month),as.character(day))
-print(key1)
 
 ### Nuevo Producto
 nuevoProducto <- c("PROVEEDOR","CODIGO","PRODUCTO","PRECIO","TIPO")
@@ -59,7 +58,6 @@ cargador("ISO","productos")
 productos <- db$find()
 cargador("ISO","proveedores")
 proveedores <- db$find()
-print(proveedores)
 cargador("ISO","trabajadores")
 trabajadores <- db$find()
 nombreCompleto <- paste(trabajadores$Nombres, trabajadores$Apellido_1, sep=" ")
@@ -177,8 +175,10 @@ shinyApp(
     output$table = renderDataTable({
       values$df 
     })
-    
+    #################################################################################
+    #Get the address
     direccion <- reactive(input$direccion)
+    
     #################################################################################
     ## Controller for the second selection
     output$secondSelection <- renderUI({
@@ -219,10 +219,8 @@ shinyApp(
       data <- sapply(nuevoProducto, function(x) input[[x]])
       data
     })
-    
     observeEvent(input$enviar, {
       guardarNuevoProducto(formData())
     })
-    
   }
 )

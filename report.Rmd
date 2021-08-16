@@ -1,5 +1,8 @@
 ---
 output: pdf_document
+header-includes:
+  \usepackage{colortbl}
+  \arrayrulecolor{white}
 params:
   n: NA
   e: NA
@@ -12,11 +15,24 @@ params:
 include_graphics(params$i)
 ```
 
-# PEDIDO
+
+
+```{r multilimpiezas, echo=FALSE}
+library(kableExtra)
+MULTILIMPIEZAS <- c("Facility Services","C/Puerto Rico, 27", "Madrid, CP 28016","Teléfono: 914166050 - 609 087 288, Fax.  914161762, jc@multilimpiezas.com")
+MULTILIMPIEZAS <- as.data.frame(MULTILIMPIEZAS)
+kable(MULTILIMPIEZAS, col.names = NULL) 
+```
+
+# PEDIDO  
+## ENVIAR A LA SIGUIENTE DIRECCIÓN  
 
 ```{r direccion, echo=FALSE}
-library(kableExtra)
-kable(params$n)
+direccionEnvio <- as.character(params$n)
+direccionEnvio <- unlist(strsplit(direccionEnvio,"\\\\n"))
+direccionEnvio <- as.data.frame(direccionEnvio)
+
+kable(direccionEnvio, col.names = NULL)
 ```
 
 ```{r echo=FALSE}
